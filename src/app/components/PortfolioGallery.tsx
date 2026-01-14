@@ -1,6 +1,9 @@
 'use client';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useState } from 'react';
+import Link from 'next/link';
+
+import ParallaxSection from './ParalaxSection';
 
 type Category = 'all' | 'residential' | 'commercial' | 'gardens' | 'hardscape';
 
@@ -320,17 +323,58 @@ export default function PortfolioGallery() {
         </div>
       )}
 
+      <ParallaxSection imageUrl='/assets/pexels-pixabay-261410.jpg'>
+        <div className='flex flex-col'>
+          <h1 className='text-4xl md:text-6xl font-montserrat font-bold text-center '>
+            Check out our social media!
+          </h1>
+          <div className='flex flex-row justify-center gap-10'>
+            <Link href='/get-a-quote'>
+              <img
+                src='/assets/AB-seal-horz.svg'
+                alt='Logo'
+                className='h-[40px] w-auto cursor-pointer'
+              />
+            </Link>
+            <Link href='/get-a-quote'>
+              <img
+                src='/assets/AB-seal-horz.svg'
+                alt='Logo'
+                className='h-[40px] w-auto cursor-pointer'
+              />
+            </Link>
+            <Link href='/get-a-quote'>
+              <img
+                src='/assets/AB-seal-horz.svg'
+                alt='Logo'
+                className='h-[40px] w-auto cursor-pointer'
+              />
+            </Link>
+            <Link href='/get-a-quote'>
+              <img
+                src='/assets/AB-seal-horz.svg'
+                alt='Logo'
+                className='h-[40px] w-auto cursor-pointer'
+              />
+            </Link>
+          </div>
+        </div>
+      </ParallaxSection>
+
       {/* CTA Section */}
-      <section className='py-16 lg:py-24 bg-green-700 text-white'>
-        <div className='container mx-auto px-4 lg:px-8 text-center'>
-          <h2 className='text-white mb-4'>Let's Create Your Dream Landscape</h2>
-          <p className='text-xl mb-8 text-white/90 max-w-2xl mx-auto'>
+      <section className='py-16 lg:py-24 bg-green-700 text-white text-xl'>
+        <div className='container mx-auto text-center'>
+          <h2 className='mb-4'>Let's Create Your Dream Landscape</h2>
+          <p className='mb-8 text-white/90 max-w-2xl mx-auto'>
             See how we can transform your outdoor space into something
             extraordinary
           </p>
-          <button className='bg-white text-green-700 hover:bg-gray-100 px-8 py-3 rounded-lg transition-colors'>
+          <Link
+            href='/get-a-quote'
+            className='bg-white hover:bg-green-100 text-green-700 text-lg rounded-lg inline-flex items-center gap-2 transition-colors cursor-pointer px-8 py-3'
+          >
             Start Your Project
-          </button>
+          </Link>
         </div>
       </section>
     </>
