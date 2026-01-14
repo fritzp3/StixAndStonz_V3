@@ -2,7 +2,7 @@ import PortfolioGallery from '../components/PortfolioGallery';
 
 export default function Portfolio() {
   return (
-    <main className='container mx-auto px-4 py-12 scroll-mt-28'>
+    <main className='container mx-auto py-12 scroll-mt-28'>
       <div>
         <div className='mb-12'>
           <h1 className='text-3xl font-bold mb-8 text-center'>Our Portfolio</h1>
