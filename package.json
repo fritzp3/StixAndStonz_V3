@@ -5,7 +5,8 @@
     "lucide-react": "^0.561.0",
     "next": "^16.0.10",
     "react": "^19.2.3",
-    "react-dom": "^19.2.3"
+    "react-dom": "^19.2.3",
+    "simple-icons": "^16.6.0"
   },
   "scripts": {
     "dev": "next dev",

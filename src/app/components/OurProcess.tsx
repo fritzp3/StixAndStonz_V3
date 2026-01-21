@@ -61,7 +61,7 @@ export default function OurProcess() {
       <div className='container mx-auto pt-8 text-center'>
         <Link
           href='#reviews'
-          className='bg-green-700 hover:bg-green-800 text-white px-8 py-3 inline-flex items-center gap-2 transition-colors cursor-pointer'
+          className='bg-green-700 hover:bg-green-800 text-white rounded-[8px] py-3 px-5 inline-flex items-center gap-2 transition-colors cursor-pointer'
         >
           More Info
           <ArrowBigDown size={20} />

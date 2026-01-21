@@ -58,14 +58,14 @@ export default function Reviews() {
         <div className='flex flex-wrap justify-center gap-4'>
           <Link
             href='/portfolio'
-            className='bg-green-700 hover:bg-green-800 text-white px-8 py-3 inline-flex items-center gap-2 transition-colors cursor-pointer'
+            className='bg-green-700 hover:bg-green-800 text-white rounded-[8px] py-3 px-5 inline-flex items-center gap-2 transition-colors cursor-pointer'
           >
             View Our Portfolio
           </Link>
 
           <Link
             href='/get-a-quote'
-            className='bg-green-700 hover:bg-green-800 text-white px-8 py-3 inline-flex items-center gap-2 transition-colors cursor-pointer'
+            className='bg-green-700 hover:bg-green-800 text-white rounded-[8px] py-3 px-5 inline-flex items-center gap-2 transition-colors cursor-pointer'
           >
             Get a Free Quote
           </Link>

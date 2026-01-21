@@ -50,8 +50,7 @@ export default function AnimatedHeroImage() {
               <div className='flex gap-4 flex-wrap justify-start text-white'>
                 <Link
                   href='/get-a-quote'
-                  className='bg-green-700 hover:bg-green-800 rounded-[8px] p-2 px-5 inline-flex items-center gap-2 transition-colors cursor-pointer font-semibold
-'
+                  className='bg-green-700 hover:bg-green-800 rounded-[8px] p-2 px-5 inline-flex items-center gap-2 transition-colors cursor-pointer font-semibold'
                 >
                   Get a Quote
                   <ArrowBigRight size={20} />

@@ -1,9 +1,13 @@
 'use client';
-import { X, ChevronLeft, ChevronRight } from 'lucide-react';
+import { X, ChevronLeft, ChevronRight, Images } from 'lucide-react';
+
+import { siFacebook, siGoogle, siYoutube, siX } from 'simple-icons';
+
 import { useState } from 'react';
 import Link from 'next/link';
 
 import ParallaxSection from './ParalaxSection';
+import YouTubeEmbed from './YouTubeEmbed';
 
 type Category = 'all' | 'residential' | 'commercial' | 'gardens' | 'hardscape';
 
@@ -151,7 +155,7 @@ export default function PortfolioGallery() {
   const nextImage = () => {
     if (selectedProject) {
       setCurrentImageIndex((prev) =>
-        prev === selectedProject.images.length - 1 ? 0 : prev + 1
+        prev === selectedProject.images.length - 1 ? 0 : prev + 1,
       );
     }
   };
@@ -159,23 +163,32 @@ export default function PortfolioGallery() {
   const prevImage = () => {
     if (selectedProject) {
       setCurrentImageIndex((prev) =>
-        prev === 0 ? selectedProject.images.length - 1 : prev - 1
+        prev === 0 ? selectedProject.images.length - 1 : prev - 1,
       );
     }
   };
+
+  const Icon = ({ path, color }: { path: string; color: string }) => (
+    <svg
+      viewBox='0 0 24 24'
+      className='h-10 w-10 fill-current'
+      style={{ color }}
+      aria-hidden
+    >
+      <path d={path} />
+    </svg>
+  );
 
   return (
     <>
       <div className='container mx-auto px-4 lg:px-8'>
         <div className='max-w-3xl mx-auto text-center'>
-          <h1 className='mb-6'>Our Portfolio</h1>
           <p className='text-xl text-gray-600'>
             Explore our collection of award-winning landscape architecture
             projects
           </p>
         </div>
       </div>
-
       {/* Category Filter */}
       <section className='py-8 border-b border-gray-200'>
         <div className='container mx-auto px-4 lg:px-8'>
@@ -196,7 +209,6 @@ export default function PortfolioGallery() {
           </div>
         </div>
       </section>
-
       {/* Gallery Grid */}
       <section className='py-16 lg:py-24'>
         <div className='container mx-auto px-4 lg:px-8'>
@@ -231,9 +243,18 @@ export default function PortfolioGallery() {
               </div>
             ))}
           </div>
+          <div className='mt-16 items-center text-center text-xl'>
+            <Link
+              href='https://photos.app.goo.gl/hx69GkycE4ELDGuG8'
+              className='bg-green-700 hover:bg-green-800 text-white rounded-[8px] py-3 px-5 inline-flex items-center gap-2 transition-colors cursor-pointer'
+              target='_blank'
+            >
+              <Images size={20} />
+              Click here to view more of our project photos
+            </Link>
+          </div>
         </div>
       </section>
-
       {/* Modal */}
       {selectedProject && (
         <div
@@ -325,42 +346,19 @@ export default function PortfolioGallery() {
 
       <ParallaxSection imageUrl='/assets/pexels-pixabay-261410.jpg'>
         <div className='flex flex-col'>
-          <h1 className='text-4xl md:text-6xl font-montserrat font-bold text-center '>
-            Check out our social media!
-          </h1>
-          <div className='flex flex-row justify-center gap-10'>
-            <Link href='/get-a-quote'>
-              <img
-                src='/assets/AB-seal-horz.svg'
-                alt='Logo'
-                className='h-[40px] w-auto cursor-pointer'
-              />
-            </Link>
-            <Link href='/get-a-quote'>
-              <img
-                src='/assets/AB-seal-horz.svg'
-                alt='Logo'
-                className='h-[40px] w-auto cursor-pointer'
-              />
-            </Link>
-            <Link href='/get-a-quote'>
-              <img
-                src='/assets/AB-seal-horz.svg'
-                alt='Logo'
-                className='h-[40px] w-auto cursor-pointer'
-              />
-            </Link>
-            <Link href='/get-a-quote'>
-              <img
-                src='/assets/AB-seal-horz.svg'
-                alt='Logo'
-                className='h-[40px] w-auto cursor-pointer'
-              />
-            </Link>
+          <h2 className='text-3xl md:text-5xl font-montserrat font-bold text-center '>
+            Check out our social!
+          </h2>
+          <div className='flex flex-row justify-center'>
+            <div className='flex justify-between w-full p-6'>
+              <Icon path={siFacebook.path} color='#1877F2' />
+              <Icon path={siGoogle.path} color='#4285F4' />
+              <Icon path={siYoutube.path} color='#FF0000' />
+              <Icon path={siX.path} color='#ffffff' />
+            </div>
           </div>
         </div>
       </ParallaxSection>
-
       {/* CTA Section */}
       <section className='py-16 lg:py-24 bg-green-700 text-white text-xl'>
         <div className='container mx-auto text-center'>
