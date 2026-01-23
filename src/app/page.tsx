@@ -3,11 +3,13 @@ import Services from './components/Services';
 import Reviews from './components/Reviews';
 import OurProcess from './components/OurProcess';
 import ParallaxSection from './components/ParalaxSection';
+import Financing from './components/Financing';
 
 export default function Home() {
   return (
     <>
       <HomeSection />
+      <Financing />
       <Services />
       <ParallaxSection imageUrl='/assets/pexels-pixabay-261410.jpg'>
         <h1 className='text-4xl md:text-6xl font-montserrat font-bold text-center'>

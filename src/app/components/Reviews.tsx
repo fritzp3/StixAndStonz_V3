@@ -4,21 +4,21 @@ import Link from 'next/link';
 export default function Reviews() {
   const testimonials = [
     {
-      name: 'Sarah Johnson',
+      name: 'Denny B',
       location: 'Denver, CO',
-      text: 'GreenScape transformed our backyard into a stunning xeriscape oasis. The design is both beautiful and sustainable, saving us thousands on water bills.',
+      text: 'Shane and his crew are amazing and go above and beyond every time. They do a great job with our weekly maintenance and their Spring cleanup left our yard looking amazing. Did I mention that they show up on time every time? Well they do and they also ring our door bell before mowing so our dog is inside. Highly recommended. AAA+++.',
       rating: 5,
     },
     {
-      name: 'Michael Chen',
+      name: 'Marcus J',
       location: 'Boulder, CO',
-      text: 'The attention to detail and professionalism was outstanding. They turned our vision into reality and exceeded all expectations.',
+      text: "If you're in need of landscaping services, particularly for sprinkler system repairs, look no further than Stix & Stonz. Their combination of expertise, efficiency, and outstanding customer service makes them a top choice.",
       rating: 5,
     },
     {
-      name: 'Emily Rodriguez',
+      name: 'Heather W',
       location: 'Colorado Springs, CO',
-      text: 'We love our new outdoor living space! The team was responsive, creative, and delivered exactly what we wanted on time and within budget.',
+      text: 'We hired Shane to help with yard upkeep and he ended up getting rid of our weeds and trimmed some bushes as well! Honestly, for as long as I have rented this house, my yard looked the best when Stix and Stonz was taking care of it!',
       rating: 5,
     },
   ];

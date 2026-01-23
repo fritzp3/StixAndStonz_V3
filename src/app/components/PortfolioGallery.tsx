@@ -1,7 +1,13 @@
 'use client';
 import { X, ChevronLeft, ChevronRight, Images } from 'lucide-react';
 
-import { siFacebook, siGoogle, siYoutube, siX } from 'simple-icons';
+import {
+  siFacebook,
+  siGoogle,
+  siYoutube,
+  siX,
+  siInstagram,
+} from 'simple-icons';
 
 import { useState } from 'react';
 import Link from 'next/link';
@@ -351,10 +357,30 @@ export default function PortfolioGallery() {
           </h2>
           <div className='flex flex-row justify-center'>
             <div className='flex justify-between w-full p-6'>
-              <Icon path={siFacebook.path} color='#1877F2' />
-              <Icon path={siGoogle.path} color='#4285F4' />
-              <Icon path={siYoutube.path} color='#FF0000' />
-              <Icon path={siX.path} color='#ffffff' />
+              <Link
+                href='https://www.facebook.com/p/Stix-Stonz-Landscaping-61563001276482/'
+                target='_blank'
+              >
+                <Icon path={siFacebook.path} color='#1877F2' />
+              </Link>
+              <Link
+                href='https://photos.app.goo.gl/hx69GkycE4ELDGuG8'
+                target='_blank'
+              >
+                <Icon path={siGoogle.path} color='#4285F4' />
+              </Link>
+              <Link
+                href='https://www.youtube.com/@StixandStonzLandscaping'
+                target='_blank'
+              >
+                <Icon path={siYoutube.path} color='#FF0000' />
+              </Link>
+              <Link
+                href='https://www.instagram.com/stix.and.stonz.landscaping/'
+                target='_blank'
+              >
+                <Icon path={siInstagram.path} color='#FF0069' />
+              </Link>
             </div>
           </div>
         </div>

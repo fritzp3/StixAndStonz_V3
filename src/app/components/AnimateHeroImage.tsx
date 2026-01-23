@@ -28,7 +28,7 @@ export default function AnimatedHeroImage() {
         /> */}
       </motion.div>
 
-      <div className='absolute inset-0 flex items-top mt-20 lg:items-center justify-center z-10'>
+      <div className='absolute inset-0 flex items-center mt-20 justify-center z-10'>
         <motion.div
           initial={{ x: 200, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
@@ -67,7 +67,8 @@ export default function AnimatedHeroImage() {
         </motion.div>
       </div>
 
-      <div className='absolute inset-0 flex items-end w-full'>
+      {/* This code was not clickable due to the absolute position of the Hero */}
+      {/* <div className='absolute inset-0 flex items-end w-full'>
         <div className='bg-black/70 p-4 lg:p-4 text-white w-full text-center'>
           <div className='flex items-center justify-center gap-6'>
             <div className='font-montserrat text-xl'>
@@ -79,7 +80,7 @@ export default function AnimatedHeroImage() {
             </div>
             <div>
               <Link
-                href='#reviews'
+                href='/get-a-quote'
                 className='bg-yellow-500 hover:bg-green-800 text-white px-8 py-3 inline-flex items-center gap-2 transition-colors cursor-pointer'
               >
                 More
@@ -88,7 +89,7 @@ export default function AnimatedHeroImage() {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </>
   );
 }
