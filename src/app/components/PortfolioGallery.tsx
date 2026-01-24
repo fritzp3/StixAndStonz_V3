@@ -1,13 +1,7 @@
 'use client';
 import { X, ChevronLeft, ChevronRight, Images } from 'lucide-react';
 
-import {
-  siFacebook,
-  siGoogle,
-  siYoutube,
-  siX,
-  siInstagram,
-} from 'simple-icons';
+import { siFacebook, siGoogle, siYoutube, siInstagram } from 'simple-icons';
 
 import { useState } from 'react';
 import Link from 'next/link';
