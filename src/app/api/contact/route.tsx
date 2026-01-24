@@ -2,60 +2,43 @@
 import { DynamoDBClient, PutItemCommand } from '@aws-sdk/client-dynamodb';
 import { randomUUID } from 'crypto';
 
-export async function POST(req: Request) {
-  try {
-    // --- Determine environment (Production vs Local) ---
-    const isProd = !!process.env.PROD_AWS_ACCESS_KEY_ID;
+const region = process.env.AWS_REGION || 'us-west-2';
 
-    const accessKeyId = isProd
-      ? process.env.PROD_AWS_ACCESS_KEY_ID
-      : process.env.AWS_ACCESS_KEY_ID;
+// Local dev = explicit credentials
+const isLocal =
+  process.env.NODE_ENV === 'development' &&
+  !!process.env.AWS_ACCESS_KEY_ID &&
+  !!process.env.AWS_SECRET_ACCESS_KEY;
 
-    const secretAccessKey = isProd
-      ? process.env.PROD_AWS_SECRET_ACCESS_KEY
-      : process.env.AWS_SECRET_ACCESS_KEY;
-
-    const region = isProd
-      ? process.env.PROD_AWS_REGION
-      : process.env.AWS_REGION;
-
-    if (!accessKeyId || !secretAccessKey || !region) {
-      throw new Error(
-        `Missing AWS environment variables. Current values: 
-      accessKeyId=${!!accessKeyId}, 
-      secretAccessKey=${!!secretAccessKey}, 
-      region=${!!region}`,
-      );
-    }
-
-    // --- Initialize DynamoDB client ---
-    const client = new DynamoDBClient({
+const client = isLocal
+  ? new DynamoDBClient({
       region,
       credentials: {
-        accessKeyId,
-        secretAccessKey,
+        accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
       },
+    })
+  : new DynamoDBClient({
+      region,
+      // IMPORTANT:
+      // No credentials here → Amplify SSR assumes AmplifySSR_DynamoDBWriteOnly
     });
 
-    // --- Parse request body ---
-    const data = await req.json();
-    const { name, email, phone, message } = data;
+export async function POST(req: Request) {
+  try {
+    const { name, email, phone, message } = await req.json();
 
     if (!name || !email || !message) {
       return new Response(
         JSON.stringify({ error: 'All fields are required' }),
-        {
-          status: 400,
-          headers: { 'Content-Type': 'application/json' },
-        },
+        { status: 400, headers: { 'Content-Type': 'application/json' } },
       );
     }
 
-    // --- Prepare DynamoDB item ---
     const command = new PutItemCommand({
       TableName: 'landscaping_leads',
       Item: {
-        leadId: { S: randomUUID() }, // Primary key
+        leadId: { S: randomUUID() },
         name: { S: name },
         email: { S: email },
         phone: { S: phone || '' },
@@ -65,7 +48,6 @@ export async function POST(req: Request) {
       },
     });
 
-    // --- Send item to DynamoDB ---
     await client.send(command);
 
     return new Response(
