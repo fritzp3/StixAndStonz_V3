@@ -5,7 +5,7 @@ import { randomUUID } from 'crypto';
 export const runtime = 'nodejs';
 
 const client = new DynamoDBClient({
-  region: process.env.AWS_REGION,
+  region: process.env.AMPLIFY_REGION || 'us-west-2',
 });
 
 export async function POST(req: Request) {
