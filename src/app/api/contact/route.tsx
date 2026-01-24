@@ -20,7 +20,12 @@ export async function POST(req: Request) {
       : process.env.AWS_REGION;
 
     if (!accessKeyId || !secretAccessKey || !region) {
-      throw new Error('Missing AWS environment variables');
+      throw new Error(
+        `Missing AWS environment variables. Current values: 
+      accessKeyId=${!!accessKeyId}, 
+      secretAccessKey=${!!secretAccessKey}, 
+      region=${!!region}`,
+      );
     }
 
     // --- Initialize DynamoDB client ---
