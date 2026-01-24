@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 import { DynamoDBClient, PutItemCommand } from '@aws-sdk/client-dynamodb';
 import { randomUUID } from 'crypto';
 
+export const runtime = 'nodejs';
+
 const client = new DynamoDBClient({
   region: process.env.AWS_REGION,
 });
@@ -16,7 +18,7 @@ export async function POST(req: Request) {
     if (!name || !email) {
       return NextResponse.json(
         { error: 'Missing required fields' },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -32,7 +34,7 @@ export async function POST(req: Request) {
           status: { S: 'new' },
           createdAt: { S: new Date().toISOString() },
         },
-      })
+      }),
     );
 
     return NextResponse.json({ success: true });
