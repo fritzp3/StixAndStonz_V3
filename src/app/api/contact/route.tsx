@@ -1,45 +1,62 @@
-import { NextResponse } from 'next/server';
+// src/app/api/contact/route.ts
 import { DynamoDBClient, PutItemCommand } from '@aws-sdk/client-dynamodb';
 import { randomUUID } from 'crypto';
 
-export const runtime = 'nodejs';
+const { AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_REGION } = process.env;
+
+if (!AWS_ACCESS_KEY_ID || !AWS_SECRET_ACCESS_KEY || !AWS_REGION) {
+  throw new Error('Missing AWS environment variables');
+}
 
 const client = new DynamoDBClient({
-  region: process.env.AMPLIFY_REGION || 'us-west-2',
+  region: AWS_REGION,
+  credentials: {
+    accessKeyId: AWS_ACCESS_KEY_ID,
+    secretAccessKey: AWS_SECRET_ACCESS_KEY,
+  },
 });
 
 export async function POST(req: Request) {
   try {
-    console.log('AWS REGION:', process.env.AWS_REGION);
-    const body = await req.json();
+    const data = await req.json();
+    const { name, email, phone, message } = data;
 
-    const { name, email, phone, message } = body;
-
-    if (!name || !email) {
-      return NextResponse.json(
-        { error: 'Missing required fields' },
-        { status: 400 },
+    if (!name || !email || !message) {
+      return new Response(
+        JSON.stringify({ error: 'All fields are required' }),
+        {
+          status: 400,
+          headers: { 'Content-Type': 'application/json' },
+        },
       );
     }
 
-    await client.send(
-      new PutItemCommand({
-        TableName: 'landscaping_leads',
-        Item: {
-          leadId: { S: randomUUID() },
-          name: { S: name },
-          email: { S: email },
-          phone: { S: phone || '' },
-          message: { S: message || '' },
-          status: { S: 'new' },
-          createdAt: { S: new Date().toISOString() },
-        },
-      }),
-    );
+    const command = new PutItemCommand({
+      TableName: 'landscaping_leads',
+      Item: {
+        leadId: { S: randomUUID() },
+        name: { S: name },
+        email: { S: email },
+        phone: { S: phone || '' },
+        message: { S: message || '' },
+        status: { S: 'new' },
+        createdAt: { S: new Date().toISOString() },
+      },
+    });
 
-    return NextResponse.json({ success: true });
-  } catch (err) {
-    console.error(err);
-    return NextResponse.json({ error: 'Server error' }, { status: 500 });
+    await client.send(command);
+
+    return new Response(
+      JSON.stringify({ message: 'Form submission stored successfully!' }),
+      { status: 200, headers: { 'Content-Type': 'application/json' } },
+    );
+  } catch (err: any) {
+    console.error('DynamoDB error:', err);
+    return new Response(
+      JSON.stringify({
+        error: err.message || 'Failed to store form submission',
+      }),
+      { status: 500, headers: { 'Content-Type': 'application/json' } },
+    );
   }
 }
