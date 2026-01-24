@@ -4,21 +4,35 @@ import { randomUUID } from 'crypto';
 
 export async function POST(req: Request) {
   try {
-    const { AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_REGION } =
-      process.env;
+    // --- Determine environment (Production vs Local) ---
+    const isProd = !!process.env.PROD_AWS_ACCESS_KEY_ID;
 
-    if (!AWS_ACCESS_KEY_ID || !AWS_SECRET_ACCESS_KEY || !AWS_REGION) {
+    const accessKeyId = isProd
+      ? process.env.PROD_AWS_ACCESS_KEY_ID
+      : process.env.AWS_ACCESS_KEY_ID;
+
+    const secretAccessKey = isProd
+      ? process.env.PROD_AWS_SECRET_ACCESS_KEY
+      : process.env.AWS_SECRET_ACCESS_KEY;
+
+    const region = isProd
+      ? process.env.PROD_AWS_REGION
+      : process.env.AWS_REGION;
+
+    if (!accessKeyId || !secretAccessKey || !region) {
       throw new Error('Missing AWS environment variables');
     }
 
+    // --- Initialize DynamoDB client ---
     const client = new DynamoDBClient({
-      region: AWS_REGION,
+      region,
       credentials: {
-        accessKeyId: AWS_ACCESS_KEY_ID,
-        secretAccessKey: AWS_SECRET_ACCESS_KEY,
+        accessKeyId,
+        secretAccessKey,
       },
     });
 
+    // --- Parse request body ---
     const data = await req.json();
     const { name, email, phone, message } = data;
 
@@ -32,10 +46,11 @@ export async function POST(req: Request) {
       );
     }
 
+    // --- Prepare DynamoDB item ---
     const command = new PutItemCommand({
       TableName: 'landscaping_leads',
       Item: {
-        leadId: { S: randomUUID() },
+        leadId: { S: randomUUID() }, // Primary key
         name: { S: name },
         email: { S: email },
         phone: { S: phone || '' },
@@ -45,6 +60,7 @@ export async function POST(req: Request) {
       },
     });
 
+    // --- Send item to DynamoDB ---
     await client.send(command);
 
     return new Response(
