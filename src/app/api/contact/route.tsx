@@ -3,7 +3,9 @@ import { DynamoDBClient, PutItemCommand } from '@aws-sdk/client-dynamodb';
 import { randomUUID } from 'crypto';
 
 const region = process.env.AWS_REGION || 'us-west-2';
-const ALLOWED_REGIONS = ['us-west-1', 'us-west-2'];
+
+// Allow only US submissions in production
+const ALLOWED_COUNTRY = 'US';
 
 // Local dev = explicit credentials
 const isLocal =
@@ -25,17 +27,23 @@ const client = isLocal
 
 export async function POST(req: Request) {
   try {
-    const viewerRegion =
-      req.headers.get('cloudfront-viewer-region') ??
-      req.headers.get('x-amz-cf-region');
+    // ---- LOG REQUEST ENTRY ----
+    console.log('[CONTACT FORM] Request received');
 
-    if (
-      process.env.NODE_ENV !== 'development' &&
-      (!viewerRegion || !ALLOWED_REGIONS.includes(viewerRegion))
-    ) {
+    // CloudFront reliably forwards country
+    const country =
+      req.headers.get('cloudfront-viewer-country') ||
+      req.headers.get('x-amz-cf-country');
+
+    console.log('[CONTACT FORM] viewer country:', country);
+
+    // Enforce region restriction ONLY in production
+    if (process.env.NODE_ENV === 'production' && country !== ALLOWED_COUNTRY) {
+      console.warn('[CONTACT FORM] Blocked submission from country:', country);
+
       return new Response(
         JSON.stringify({
-          error: 'Form submissions are only allowed from the US West region.',
+          error: 'Form submissions are restricted to the United States.',
         }),
         {
           status: 403,
