@@ -3,6 +3,7 @@ import { DynamoDBClient, PutItemCommand } from '@aws-sdk/client-dynamodb';
 import { randomUUID } from 'crypto';
 
 const region = process.env.AWS_REGION || 'us-west-2';
+const ALLOWED_REGIONS = ['us-west-1', 'us-west-2'];
 
 // Local dev = explicit credentials
 const isLocal =
@@ -20,12 +21,29 @@ const client = isLocal
     })
   : new DynamoDBClient({
       region,
-      // IMPORTANT:
-      // No credentials here → Amplify SSR assumes AmplifySSR_DynamoDBWriteOnly
     });
 
 export async function POST(req: Request) {
   try {
+    const viewerRegion =
+      req.headers.get('cloudfront-viewer-region') ??
+      req.headers.get('x-amz-cf-region');
+
+    if (
+      process.env.NODE_ENV !== 'development' &&
+      (!viewerRegion || !ALLOWED_REGIONS.includes(viewerRegion))
+    ) {
+      return new Response(
+        JSON.stringify({
+          error: 'Form submissions are only allowed from the US West region.',
+        }),
+        {
+          status: 403,
+          headers: { 'Content-Type': 'application/json' },
+        },
+      );
+    }
+
     const { name, email, phone, message } = await req.json();
 
     if (!name || !email || !message) {
