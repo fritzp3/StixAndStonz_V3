@@ -1,8 +1,10 @@
 'use client';
 import { MapPin, Phone, Mail, Clock } from 'lucide-react';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function ContactForm() {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -14,36 +16,40 @@ export default function ContactForm() {
     message: '',
   });
 
+  const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const res = await fetch('/api/contact', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(formData),
-    });
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
 
-    if (res.ok) {
-      alert('Thanks! We’ll be in touch.');
-    } else {
-      alert('Something went wrong.');
+      if (res.ok) {
+        setStatus('success');
+        // Redirect to confirmation page
+        router.push('/thank-you');
+      } else {
+        setStatus('error');
+      }
+    } catch (err) {
+      console.error(err);
+      setStatus('error');
     }
 
-    // Handle form submission
-    alert(
-      "Thank you for your quote request! We'll get back to you within 24 hours.",
-    );
-
-    setFormData({
-      name: '',
-      email: '',
-      phone: '',
-      address: '',
-      projectType: '',
-      budget: '',
-      timeline: '',
-      message: '',
-    });
+    // setFormData({
+    //   name: '',
+    //   email: '',
+    //   phone: '',
+    //   address: '',
+    //   projectType: '',
+    //   budget: '',
+    //   timeline: '',
+    //   message: '',
+    // });
   };
 
   const handleChange = (
@@ -63,6 +69,13 @@ export default function ContactForm() {
       <div className='grid lg:grid-cols-2 gap-12'>
         <div>
           <form onSubmit={handleSubmit} className='space-y-6'>
+            {/* Display error message if submission fails */}
+            {status === 'error' && (
+              <div className='text-red-700 bg-red-100 p-3 rounded-lg mb-4'>
+                Something went wrong. Please try again.
+              </div>
+            )}
+
             <div className='grid md:grid-cols-2 gap-6'>
               <div>
                 <label htmlFor='name' className='block mb-2 text-gray-700'>
