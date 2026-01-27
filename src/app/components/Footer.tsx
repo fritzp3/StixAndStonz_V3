@@ -34,15 +34,6 @@ export default function Footer() {
         </nav>
 
         {/* Middle: Legal links */}
-        <div className=' text-sm mb-4'>
-          <Link href='/privacy-policy' className='hover:text-white'>
-            Privacy Policy
-          </Link>
-          <span className='mx-2'>|</span>
-          <Link href='/contact' className='hover:text-white'>
-            Contact Us
-          </Link>
-        </div>
         <div className='flex flex-row justify-center'>
           <div className='flex justify-between w-96 p-6'>
             <Link
