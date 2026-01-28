@@ -87,7 +87,7 @@ export default function PortfolioGallery() {
     {
       id: 4,
       title: 'Pavers and Pathways',
-      category: 'gardens',
+      category: 'hardscape',
       image:
         'https://cdn.stixandstonzlandscaping.com/projects/pavers-and-pathways/20180717_091609-1600x810.jpg',
       description: 'Natural stone pathways through perennial gardens',
@@ -102,7 +102,7 @@ export default function PortfolioGallery() {
     {
       id: 5,
       title: 'Backyard Sanctuary',
-      category: 'residential',
+      category: 'gardens',
       image:
         'https://cdn.stixandstonzlandscaping.com/projects/backyard-sanctuary/20190426_105925-h810.jpg',
       description: 'Eco-friendly design with rainwater harvesting',
@@ -133,6 +133,46 @@ export default function PortfolioGallery() {
         'https://cdn.stixandstonzlandscaping.com/projects/small-yard-space/20190808_084640-h810.jpg',
         'https://cdn.stixandstonzlandscaping.com/projects/small-yard-space/20190808_084829-h810.jpg',
         'https://cdn.stixandstonzlandscaping.com/projects/small-yard-space/20190808_084851-h810.jpg',
+      ],
+    },
+    {
+      id: 7,
+      title: 'Lurncrete Kitchens',
+      category: 'hardscape',
+      image:
+        'https://cdn.stixandstonzlandscaping.com/projects/lurncrete-kitchens/IMG_8633.jpg',
+      description:
+        'Complete outdoor kitchens built with innovative concrete and masonry products.',
+      images: [
+        'https://cdn.stixandstonzlandscaping.com/projects/lurncrete-kitchens/IMG_8634.jpg',
+        'https://cdn.stixandstonzlandscaping.com/projects/lurncrete-kitchens/IMG_8633.jpg',
+        'https://cdn.stixandstonzlandscaping.com/projects/lurncrete-kitchens/IMG_8615.jpg',
+        'https://cdn.stixandstonzlandscaping.com/projects/lurncrete-kitchens/IMG_6048.jpg',
+        'https://cdn.stixandstonzlandscaping.com/projects/lurncrete-kitchens/IMG_6058.jpg',
+        'https://cdn.stixandstonzlandscaping.com/projects/lurncrete-kitchens/IMG_8211.jpg',
+        'https://cdn.stixandstonzlandscaping.com/projects/lurncrete-kitchens/IMG_6045.jpg',
+        'https://cdn.stixandstonzlandscaping.com/projects/lurncrete-kitchens/IMG_5713.png',
+        'https://cdn.stixandstonzlandscaping.com/projects/lurncrete-kitchens/IMG_0601-2.jpg',
+      ],
+    },
+    {
+      id: 8,
+      title: 'Lurncrete Experiences',
+      category: 'gardens',
+      image:
+        'https://cdn.stixandstonzlandscaping.com/projects/lurncrete-experiences/IMG_8635.jpg',
+      description:
+        'Complete outdoor kitchens built with innovative concrete and masonry products.',
+      images: [
+        'https://cdn.stixandstonzlandscaping.com/projects/lurncrete-experiences/IMG_9399-2.jpg',
+        'https://cdn.stixandstonzlandscaping.com/projects/lurncrete-experiences/IMG_9353.jpg',
+        'https://cdn.stixandstonzlandscaping.com/projects/lurncrete-experiences/IMG_9332.jpg',
+        'https://cdn.stixandstonzlandscaping.com/projects/lurncrete-experiences/IMG_9321.jpg',
+        'https://cdn.stixandstonzlandscaping.com/projects/lurncrete-experiences/IMG_8635.jpg',
+        'https://cdn.stixandstonzlandscaping.com/projects/lurncrete-experiences/IMG_8629.jpg',
+        'https://cdn.stixandstonzlandscaping.com/projects/lurncrete-experiences/IMG_8628.jpg',
+        'https://cdn.stixandstonzlandscaping.com/projects/lurncrete-experiences/IMG_8627.jpg',
+        'https://cdn.stixandstonzlandscaping.com/projects/lurncrete-experiences/IMG_6289.jpg',
       ],
     },
   ];
