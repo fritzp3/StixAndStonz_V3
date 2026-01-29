@@ -29,6 +29,17 @@ export default function ContactForm() {
       });
 
       if (res.ok) {
+        // Google Analytics form submission event
+        if (
+          typeof window !== 'undefined' &&
+          typeof window.gtag === 'function'
+        ) {
+          window.gtag('event', 'submit', {
+            event_category: 'Contact',
+            event_label: 'Contact Form',
+            value: 1,
+          });
+        }
         setStatus('success');
         // Redirect to confirmation page
         router.push('/thank-you');
